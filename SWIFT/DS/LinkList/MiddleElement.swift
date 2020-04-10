@@ -35,18 +35,8 @@
 
  */
 import Foundation
-/**
- Definition for singly-linked list. */
- fileprivate class ListNode {
-     public var val: Int
-     public var next: ListNode?
-     public init(_ val: Int) {
-         self.val = val
-         self.next = nil
-     }
- }
 
-fileprivate func middleNode(_ head: ListNode?) -> ListNode? {
+ func middleNode(_ head: ListNode?) -> ListNode? {
     
     var slow = head
     var fast = head
