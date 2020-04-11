@@ -9,8 +9,8 @@
 import Foundation
 class TreeNode {
     let val : Int
-    var leftChild :  TreeNode? = nil
-    var rightChild : TreeNode? = nil
+    var left :  TreeNode? = nil
+    var right : TreeNode? = nil
     init(val : Int) {
         self.val = val
     }

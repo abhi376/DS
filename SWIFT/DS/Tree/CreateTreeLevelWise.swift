@@ -26,15 +26,15 @@ func createTreeLevelWiseFromArray(array : [Int]){
     while queue.isEmpty {
         _ = queue.first
         if(index < array.count){
-            let leftNode = TreeNode(val: array[index])
-            root.leftChild = leftNode
-            queue.append(leftNode)
+            let left = TreeNode(val: array[index])
+            root.left = left
+            queue.append(left)
             index += 1
         }
         if(index < array.count){
-            let rightChild = TreeNode(val: array[index])
-            root.rightChild = rightChild
-            queue.append(rightChild)
+            let right = TreeNode(val: array[index])
+            root.right = right
+            queue.append(right)
             index += 1
         }
         
