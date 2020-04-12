@@ -9,13 +9,13 @@
 import Foundation
 
 struct Heap <T : Comparable>{
-    typealias minValue = T
+    var areInIncreasingOrder:(T, T) -> Bool
     var array : [T] = [T]()
     var size = 0
-    
-    public func sort(){
-        
+    init(by order : @escaping (T, T)  -> Bool) {
+        areInIncreasingOrder = order
     }
+    
     public mutating func poll() -> T? {
         if(array.count >= 0){
             let top = array[0]
@@ -77,12 +77,13 @@ struct Heap <T : Comparable>{
         var currentIndex = index
         while(hasParent(currentIndex)){
             let pIndex = parentIndex(currentIndex)
-            if(array[pIndex] > array[currentIndex]){
-                swap(currentIndex, pIndex)
-                currentIndex = pIndex
+            if(areInIncreasingOrder(array[pIndex] , array[currentIndex])){
+                break
             }
             else {
-                break
+                swap(currentIndex, pIndex)
+                currentIndex = pIndex
+                
             }
         }
     }
@@ -91,11 +92,11 @@ struct Heap <T : Comparable>{
     private mutating func percoladeDown(_ index : Int){
         var currentIndex = index
         while(hasLeftChild(currentIndex)){
-            let leftIndex = leftChild(index)
+            let leftIndex = leftChild(currentIndex)
             if(hasRightChild(currentIndex)){
                 let rightIndex = rightChild(currentIndex)
-                if(array[leftIndex] < array[rightIndex]){
-                    if(array[leftIndex] < array[currentIndex]){
+                if(areInIncreasingOrder(array[leftIndex] , array[rightIndex])){
+                    if(areInIncreasingOrder(array[leftIndex] ,array[currentIndex])){
                         swap(leftIndex, currentIndex)
                         currentIndex = leftIndex
                     }
@@ -104,7 +105,7 @@ struct Heap <T : Comparable>{
                     }
                 }
                 else{
-                    if(array[rightIndex] < array[currentIndex]){
+                    if(areInIncreasingOrder(array[rightIndex] , array[currentIndex])){
                         swap(rightIndex, currentIndex)
                         currentIndex = rightIndex
                     }
@@ -114,7 +115,7 @@ struct Heap <T : Comparable>{
                 }
             }
             else{
-                if(array[leftIndex] < array[currentIndex]){
+                if(areInIncreasingOrder(array[leftIndex] , array[currentIndex])){
                     swap(leftIndex, currentIndex)
                     currentIndex = leftIndex
                 }
